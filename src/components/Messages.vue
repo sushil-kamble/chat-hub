@@ -2,7 +2,8 @@
   <div class="chat">
     <!--    TODO: Background of chat-->
     <v-card
-      class="chat-container"
+      class="chat-container my-2"
+      v-chat-scroll="{ smooth: true, notSmoothOnInit: true }"
       flat
       :height="
         $vuetify.breakpoint.smAndDown
@@ -51,20 +52,16 @@
 <script>
 import moment from "moment";
 import { real } from "@/firebase/init";
-import { mapGetters } from "vuex";
 
 export default {
   name: "Messages",
+  props: ["user"],
   data() {
     return {
       messages: []
     };
   },
   computed: {
-    // map `this.user` to `this.$store.getters.user`
-    ...mapGetters({
-      user: "user"
-    }),
     themeColorPrimary() {
       return this.$vuetify.theme.currentTheme.primary;
     },

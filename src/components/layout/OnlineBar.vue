@@ -1,7 +1,8 @@
 <template>
   <v-app-bar dense color="secondary">
-    <h3 class="goldman-font ml-3 white--text">{{ $route.params.id }}</h3>
+    <h3 class="goldman-font ml-1">{{ $route.params.id }}</h3>
     <v-spacer></v-spacer>
+    <AdminModel :admin="validateAdmin" />
     <StatusModel />
   </v-app-bar>
 </template>
@@ -10,10 +11,22 @@
 import { real, auth } from "@/firebase/init";
 import StatusModel from "@/components/StatusModel";
 import moment from "moment";
+import AdminModel from "@/components/AdminModel";
 export default {
   name: "OnlineBar",
+  props: ["user"],
   components: {
+    AdminModel,
     StatusModel
+  },
+  computed: {
+    validateAdmin() {
+      return (
+        this.user.groups.filter(group => {
+          return group.gpName === this.$route.params.id && group.owner;
+        }).length > 0
+      );
+    }
   },
   mounted() {
     const userStatusDatabaseRef = real.ref("/status/" + auth.currentUser.uid);

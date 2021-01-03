@@ -41,7 +41,7 @@ const routes = [
     path: "/group",
     name: "Group",
     component: () =>
-      import(/* webpackChunkName: "chat" */ "../views/Group.vue"),
+      import(/* webpackChunkName: "group" */ "../views/Group.vue"),
     meta: {
       requiresAuth: true
     }

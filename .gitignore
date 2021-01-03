@@ -25,4 +25,5 @@ pnpm-debug.log*
 database.rules.json
 .browserslistrc
 .firebaserc
-.firebase
+/ui-debug.log
+database-debug.log

@@ -20,12 +20,17 @@ export default new Vuex.Store({
     fetchUser({ commit }, user) {
       if (user) {
         real.ref(`users/${user.uid}/`).on("value", snap => {
+          let groups = [];
+          const groupPath = real.ref(`users/${user.uid}/groups`);
+          groupPath.on("child_added", group => {
+            groups.push(group.val());
+          });
           commit("SET_USER", {
             id: user.uid,
             name: user.displayName,
             email: user.email,
             timestamp: snap.val().timestamp,
-            groups: snap.val().groups
+            groups: groups
           });
         });
       } else {

@@ -20,14 +20,14 @@ export default {
     return {
       windowSize: {
         x: 0,
-        y: 0,
-      },
+        y: 0
+      }
     };
   },
   computed: {
     isDesktop() {
       return this.windowSize.x > 960;
-    },
+    }
   },
   mounted() {
     this.onResize();
@@ -45,11 +45,11 @@ export default {
             this.$router.push({ name: "Auth" });
           });
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -60,7 +60,7 @@ export default {
 }
 
 #app {
-  background: url("assets/chatbg.jpg");
+  background: #757575;
 }
 
 .main-app {

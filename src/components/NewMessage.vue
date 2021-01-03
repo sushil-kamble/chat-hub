@@ -13,11 +13,12 @@
 </template>
 
 <script>
-import { real, auth } from "@/firebase/init";
+import { real } from "@/firebase/init";
 import moment from "moment";
 
 export default {
   name: "NewMessage",
+  props: ["user"],
   data() {
     return {
       message: ""
@@ -28,8 +29,8 @@ export default {
       real
         .ref(`groups/${this.$route.params.id}/messages`)
         .push({
-          sender: auth.currentUser.uid,
-          senderName: auth.currentUser.displayName,
+          sender: this.user.id,
+          senderName: this.user.name,
           message: this.message,
           timestamp: moment().format()
         })

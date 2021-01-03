@@ -4,8 +4,10 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import { auth } from "@/firebase/init.js";
+import VueChatScroll from "vue-chat-scroll";
 
 Vue.config.productionTip = false;
+Vue.use(VueChatScroll);
 
 let app;
 auth.onAuthStateChanged(user => {

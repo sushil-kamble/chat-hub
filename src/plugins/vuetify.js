@@ -7,6 +7,12 @@ Vue.use(Vuetify);
 export default new Vuetify({
   theme: {
     themes: {
+      options: {
+        themeCache: {
+          get: key => localStorage.getItem(key),
+          set: (key, value) => localStorage.setItem(key, value)
+        }
+      },
       light: {
         primary: colors.blue.accent3,
         secondary: colors.grey.darken1,

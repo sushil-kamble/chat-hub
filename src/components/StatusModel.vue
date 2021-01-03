@@ -5,7 +5,7 @@
         color="primary"
         class="goldman-font"
         dark
-        small
+        x-small
         v-bind="attrs"
         v-on="on"
       >
@@ -25,7 +25,7 @@
           v-if="loadingState"
         ></v-skeleton-loader>
         <v-list v-else dense class="roboto-font">
-          <v-list-item v-for="(member, val) in filterGroupMember" :key="val">
+          <v-list-item v-for="member in filterGroupMember" :key="member.id">
             <v-list-item-content>
               <v-list-item-title>
                 {{ member.name }}
@@ -54,19 +54,18 @@
 </template>
 
 <script>
-import moment from "moment";
-import { real } from "@/firebase/init";
 import { mapGetters } from "vuex";
-
+import { real } from "@/firebase/init";
+import moment from "moment";
 export default {
   name: "StatusModel",
   data() {
     return {
-      groupMembers: [],
       dialog: false,
-      count: 0
+      groupMembers: []
     };
   },
+  props: ["admin"],
   computed: {
     ...mapGetters({
       user: "user"
@@ -83,6 +82,14 @@ export default {
         return [];
       }
     }
+  },
+  mounted() {
+    real
+      .ref(`/groups/${this.$route.params.id}/info/`)
+      .once("value")
+      .then(span => {
+        this.groupDescription = span.val();
+      });
   },
   beforeUpdate() {
     this.groupMembers = [];
